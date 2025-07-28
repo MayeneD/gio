@@ -6,17 +6,17 @@ const buttonsDiv = document.querySelector('.buttons');
 let clickCount = 0;
 let firstMove = true;
 
-btnSim.addEventListener('mouseenter', () => {
-  if (firstMove) {
-    btnSim.style.position = 'absolute';
-    const rect = btnSim.getBoundingClientRect();
-    const parentRect = buttonsDiv.getBoundingClientRect();
-    btnSim.style.left = (rect.left - parentRect.left) + 'px';
-    btnSim.style.top = (rect.top - parentRect.top) + 'px';
-    firstMove = false;
-  }
-
+function moverBotao() {
   if (clickCount < 9) {
+    if (firstMove) {
+      btnSim.style.position = 'absolute';
+      const rect = btnSim.getBoundingClientRect();
+      const parentRect = buttonsDiv.getBoundingClientRect();
+      btnSim.style.left = (rect.left - parentRect.left) + 'px';
+      btnSim.style.top = (rect.top - parentRect.top) + 'px';
+      firstMove = false;
+    }
+
     const containerWidth = buttonsDiv.clientWidth;
     const containerHeight = buttonsDiv.clientHeight;
 
@@ -31,8 +31,7 @@ btnSim.addEventListener('mouseenter', () => {
     const naoRight = naoLeft + btnNao.offsetWidth;
     const naoBottom = naoTop + btnNao.offsetHeight;
 
-    const margin = 10; // margem extra para evitar que fique MUITO perto do "Não"
-
+    const margin = 10;
     let newLeft, newTop;
     let attempts = 0;
     let safePosition = false;
@@ -47,7 +46,6 @@ btnSim.addEventListener('mouseenter', () => {
       const overlapX = !(simRight + margin < naoLeft || newLeft - margin > naoRight);
       const overlapY = !(simBottom + margin < naoTop || newTop - margin > naoBottom);
 
-      // Só considera seguro se NÃO houver sobreposição nas duas direções ao mesmo tempo
       if (!(overlapX && overlapY)) {
         safePosition = true;
       }
@@ -55,7 +53,6 @@ btnSim.addEventListener('mouseenter', () => {
       attempts++;
     }
 
-    // Se não achou posição segura após 200 tentativas, posiciona no canto superior esquerdo
     if (!safePosition) {
       newLeft = 0;
       newTop = 0;
@@ -81,7 +78,11 @@ btnSim.addEventListener('mouseenter', () => {
 
     clickCount++;
   }
-});
+}
+
+// Compatível com mouse e celular:
+btnSim.addEventListener('mouseover', moverBotao);
+btnSim.addEventListener('touchstart', moverBotao);
 
 btnNao.addEventListener('click', () => {
   messageDiv.textContent = 'Tudo bem, volte quando estiver preparado(a)! ❤️';
