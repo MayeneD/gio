@@ -85,5 +85,5 @@ btnSim.addEventListener('mouseover', moverBotao);
 btnSim.addEventListener('touchstart', moverBotao);
 
 btnNao.addEventListener('click', () => {
-  messageDiv.textContent = 'Tudo bem, volte quando estiver preparado(a)! ❤️';
+  messageDiv.textContent = 'Tudo bem, volte quando estiver preparadoa! ❤️';
 });
