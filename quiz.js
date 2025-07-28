@@ -3,7 +3,7 @@ const resultDiv = document.getElementById('result');
 
 const answers = {
   q1: 'd',
-  q2: 'a',
+  q2: 'b',
   q3: 'c',
   q4: 'a',
   q5: 'a',
